@@ -1,6 +1,6 @@
 class CatsController < ApplicationController
     def index
-        @cats = Cat.all
+        @cats = Cat.all.order(:id)
         render :index
     end
 
@@ -9,8 +9,7 @@ class CatsController < ApplicationController
         if @cat.save
             redirect_to cat_url(@cat)
         else
-            render json: @cat.errors.full_messages, status: 422
-            # render json: params
+            render :new
         end
     end
 

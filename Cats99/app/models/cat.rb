@@ -27,7 +27,7 @@ class Cat < ApplicationRecord
     validate :birth_date_cannot_be_in_the_future
 
     def birth_date_cannot_be_in_the_future
-        if birth_date.to_date > Date.today
+        if birth_date.present? && birth_date.to_date > Date.today
             errors.add(:birth_date)
         end
     end
