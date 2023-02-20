@@ -1,0 +1,38 @@
+<% action_url = (action == :create) ? cats_url : cat_url(cat.id) %>
+<% button_text  = (action == :create) ? "Create Cat" : "Update Cat"%>
+
+<div>
+    <form action="<%= action_url %>" method="POST">
+        <% if action == :update %>
+            <input type="hidden" name="_method" value="PATCH">
+        <% end %>
+
+        <label for="name">Name:</label>
+        <input id="name" type="text" name="cat[name]" value="<%= cat.name %>">
+            <br>
+        <span>Sex:</span>
+        <label for="m">M</label>
+        <input type="radio" name="cat[sex]" id="m" value="M" <%= @cat.sex == "M" %> <%= @cat.sex == "M" ? "checked" : "" %>>
+        <label for="f">F</label>
+        <input type="radio" name="cat[sex]" id="f" value="F" <%= @cat.sex == "F" %> <%= @cat.sex == "F" ? "checked" : "" %>>
+            <br>
+        <label for="color">Color:</label>
+        <select name="cat[color]" id="color">
+            <option disabled selected>-- select a color --</option>
+            <option value="gray" <%= @cat.color == "gray" ? "selected" : "" %> >gray</option>
+            <option value="ginger" <%= @cat.color == "ginger" ? "selected" : "" %> >ginger</option>
+            <option value="black" <%= @cat.color == "black" ? "selected" : "" %> >black</option>
+            <option value="calico" <%= @cat.color == "calico" ? "selected" : "" %> >calico</option>
+            <option value="tabby" <%= @cat.color == "tabby" ? "selected" : "" %> >tabby</option>
+            <option value="white" <%= @cat.color == "white" ? "selected" : "" %> >white</option>
+        </select>
+            <br>
+        <label for="date">Date:</label>
+        <input type="date" name="cat[birth_date]" id="date" value="<%= @cat.birth_date ? @cat.birth_date : "" %>">
+            <br>
+        <label for="desc">Description:</label>
+        <br>
+        <textarea name="cat[description]" id="desc"><%= @cat.description %></textarea>
+        <input type="submit" value=<%= button_text %> >
+    </form>
+</div>

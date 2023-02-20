@@ -14,12 +14,12 @@
 
 require 'action_view'
 # require 'action_view/helpers'
-include ActionView::Helpers::DateHelper
+# include ActionView::Helpers::DateHelper
 
 class Cat < ApplicationRecord
-    # include ActionView::Helpers::DateHelper
+    include ActionView::Helpers::DateHelper
 
-    CAT_COLORS = ['gray', 'orange', 'black', 'calico', 'tabby']
+    CAT_COLORS = ['gray', 'ginger', 'black', 'calico', 'tabby', 'white']
 
     validates :birth_date, :color, :name, :sex, presence: true
     validates :color, inclusion: { in: CAT_COLORS }
@@ -27,13 +27,14 @@ class Cat < ApplicationRecord
     validate :birth_date_cannot_be_in_the_future
 
     def birth_date_cannot_be_in_the_future
-        if birth_date > Date.today
+        if birth_date.to_date > Date.today
             errors.add(:birth_date)
         end
     end
 
     def age
-        time_ago_in_words(birth_date)
+        age = time_ago_in_words(birth_date)
+        age.split(" ")[1..-1].join(" ")
     end
 
 end
